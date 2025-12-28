@@ -8,13 +8,20 @@ const guess = ref("");
 
 const secret = ref(generateSecret());
 
+// Générer le nombre secret
 function generateSecret() {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+// Regénérer le nombre secret
 function resetGame() {
   secret.value = generateSecret();
   guess.value = "";
+}
+
+// Valider
+function submitGuess() {
+  console.log("submit");
 }
 </script>
 
@@ -48,7 +55,7 @@ function resetGame() {
         </p>
 
         <!-- Valider + Rejouer -->
-        <ActionButtons @reset="resetGame" />
+        <ActionButtons @submit="submitGuess" @reset="resetGame" />
 
         <!-- Consignes -->
         <div class="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
