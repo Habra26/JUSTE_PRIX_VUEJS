@@ -1,9 +1,21 @@
 <script setup>
 import { ref } from "vue";
+import ActionButtons from "./components/ActionButtons.vue";
 
 const min = 1;
 const max = 100;
 const guess = ref("");
+
+const secret = ref(generateSecret());
+
+function generateSecret() {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function resetGame() {
+  secret.value = generateSecret();
+  guess.value = "";
+}
 </script>
 
 <template>
@@ -17,8 +29,8 @@ const guess = ref("");
           Devine le nombre entre {{ min }} et {{ max }}.
         </p>
       </header>
-      <!-- Input guess -->
       <main class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        <!-- Input guess -->
         <div>
           <label class="text-sm text-slate-600">Ta proposition ici :</label>
           <input
@@ -31,33 +43,25 @@ const guess = ref("");
           />
         </div>
 
-        <p class="mt-3 text-sm text-slate-400">Ton choix : {{ guess || "" }}</p>
+        <p class="mt-3 text-sm text-slate-400">
+          Ton choix : {{ guess || "" }}
+        </p>
 
         <!-- Valider + Rejouer -->
-        <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
-          <button
-            class="rounded-xl bg-indigo-600 px-4 py-2 font-semibold text-white hover:bg-indigo-700"
-          >
-            Valider
-          </button>
+        <ActionButtons @reset="resetGame" />
 
-          <button
-            class="rounded-xl border border-slate-300 px-4 py-2 font-semibold text-slate-700 hover:bg-slate-100"
-          >
-            Rejouer
-          </button>
-          <!-- Consignes + historique -->
-          <div class="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
-            <p class="mt-1 text-lg font-semibold text-slate-700">
-              Entre un nombre et clique sur "Valider"
-            </p>
-            <p class="mt-2 text-sm text-slate-500">Essais : 0</p>
-          </div>
+        <!-- Consignes -->
+        <div class="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
+          <p class="text-lg font-semibold text-slate-700">
+            Entre un nombre et clique sur "Valider"
+          </p>
+          <p class="mt-2 text-sm text-slate-500">Essais : 0</p>
+        </div>
 
-          <div class="mt-5">
-            <h2 class="text-sm font-semibold text-slate-700">Historique</h2>
-            <p class="mt-2 text-sm text-slate-500">Aucune tentative</p>
-          </div>
+        <!-- Historique -->
+        <div class="mt-5">
+          <h2 class="text-sm font-semibold text-slate-700">Historique</h2>
+          <p class="mt-2 text-sm text-slate-500">Aucune tentative</p>
         </div>
       </main>
     </div>
