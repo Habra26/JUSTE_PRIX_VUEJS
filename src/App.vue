@@ -17,7 +17,7 @@ const guess = ref("");
           Devine le nombre entre {{ min }} et {{ max }}.
         </p>
       </header>
-
+      <!-- Input guess -->
       <main class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
         <div>
           <label class="text-sm text-slate-600">Ta proposition ici :</label>
@@ -33,6 +33,7 @@ const guess = ref("");
 
         <p class="mt-3 text-sm text-slate-400">Ton choix : {{ guess || "" }}</p>
 
+        <!-- Valider + Rejouer -->
         <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
           <button
             class="rounded-xl bg-indigo-600 px-4 py-2 font-semibold text-white hover:bg-indigo-700"
@@ -45,6 +46,18 @@ const guess = ref("");
           >
             Rejouer
           </button>
+          <!-- Consignes + historique -->
+          <div class="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
+            <p class="mt-1 text-lg font-semibold text-slate-700">
+              Entre un nombre et clique sur "Valider"
+            </p>
+            <p class="mt-2 text-sm text-slate-500">Essais : 0</p>
+          </div>
+
+          <div class="mt-5">
+            <h2 class="text-sm font-semibold text-slate-700">Historique</h2>
+            <p class="mt-2 text-sm text-slate-500">Aucune tentative</p>
+          </div>
         </div>
       </main>
     </div>
