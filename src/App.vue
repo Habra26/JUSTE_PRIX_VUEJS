@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import ActionButtons from "./components/ActionButtons.vue";
+import InstructionsTries from "./components/InstructionsTries.vue";
 
 const min = 1;
 const max = 100;
@@ -87,12 +88,7 @@ function submitGuess() {
         <ActionButtons @submit="submitGuess" @reset="resetGame" />
 
         <!-- Consignes -->
-        <div class="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
-          <p class="text-lg font-semibold text-slate-700">
-            {{ message }}
-          </p>
-          <p class="mt-2 text-sm text-slate-500">Essais : {{ tries }}</p>
-        </div>
+        <InstructionsTries :message="message" :tries="tries" />
 
         <!-- Historique -->
         <div class="mt-5">
