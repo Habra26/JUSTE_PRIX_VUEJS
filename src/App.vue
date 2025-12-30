@@ -21,7 +21,11 @@ function generateSecret() {
 function resetGame() {
   secret.value = generateSecret();
   guess.value = "";
+  tries.value = 0;
+  message.value = 'Nouvelle partie ! Entre un nombre et clique sur "Valider".';
+  Win.value = false;
 }
+
 
 // Valider
 function submitGuess() {
