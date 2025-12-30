@@ -6,6 +6,10 @@ const min = 1;
 const max = 100;
 const guess = ref("");
 
+const tries = ref(0);
+const message = ref('Entre un nombre et clique sur "Valider"');
+const Win = ref(false);
+
 const secret = ref(generateSecret());
 
 // Générer le nombre secret
@@ -21,7 +25,30 @@ function resetGame() {
 
 // Valider
 function submitGuess() {
-  console.log("submit");
+  if (Win.value) return;
+
+  const n = Number(guess.value);
+
+  if (!Number.isInteger(n)) {
+    message.value = "Entre un nombre entier.";
+    return;
+  }
+
+  if (n < min || n > max) {
+    message.value = `Choisis un nombre entre ${min} et ${max}.`;
+    return;
+  }
+
+  tries.value += 1;
+
+  if (n < secret.value) {
+    message.value = "Trop petit";
+  } else if (n > secret.value) {
+    message.value = "Trop grand";
+  } else {
+    message.value = `Bravo, trouvé en ${tries.value} essais !`;
+    Win.value = true;
+  }
 }
 </script>
 
@@ -50,9 +77,7 @@ function submitGuess() {
           />
         </div>
 
-        <p class="mt-3 text-sm text-slate-400">
-          Ton choix : {{ guess || "" }}
-        </p>
+        <p class="mt-3 text-sm text-slate-400">Ton choix : {{ guess || "" }}</p>
 
         <!-- Valider + Rejouer -->
         <ActionButtons @submit="submitGuess" @reset="resetGame" />
@@ -60,9 +85,9 @@ function submitGuess() {
         <!-- Consignes -->
         <div class="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
           <p class="text-lg font-semibold text-slate-700">
-            Entre un nombre et clique sur "Valider"
+            {{ message }}
           </p>
-          <p class="mt-2 text-sm text-slate-500">Essais : 0</p>
+          <p class="mt-2 text-sm text-slate-500">Essais : {{ tries }}</p>
         </div>
 
         <!-- Historique -->

@@ -7,7 +7,7 @@ defineEmits(["submit", "reset"]);
     <button
       type="button"
       @click="$emit('submit')"
-      class="rounded-xl bg-indigo-600 px-4 py-2 font-semibold text-white hover:bg-indigo-700 active:scale-[0.99]"
+      class="rounded-xl bg-indigo-600 px-4 py-2 font-semibold text-white hover:bg-indigo-700"
     >
       Valider
     </button>
@@ -15,7 +15,7 @@ defineEmits(["submit", "reset"]);
     <button
       type="button"
       @click="$emit('reset')"
-      class="rounded-xl border border-slate-300 px-4 py-2 font-semibold text-slate-700 hover:bg-slate-100 active:scale-[0.99]"
+      class="rounded-xl border border-slate-300 px-4 py-2 font-semibold text-slate-700 hover:bg-slate-100"
     >
       Rejouer
     </button>
