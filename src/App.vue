@@ -15,6 +15,8 @@ const Win = ref(false);
 
 const secret = ref(generateSecret());
 
+const history = ref([]);
+
 // Générer le nombre secret
 function generateSecret() {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -25,10 +27,10 @@ function resetGame() {
   secret.value = generateSecret();
   guess.value = "";
   tries.value = 0;
+  history.value = [];
   message.value = 'Nouvelle partie ! Entre un nombre et clique sur "Valider".';
   Win.value = false;
 }
-
 
 // Valider
 function submitGuess() {
@@ -50,10 +52,13 @@ function submitGuess() {
 
   if (n < secret.value) {
     message.value = "Trop petit";
+    history.value.unshift({ value: n, result: "Trop petit" });
   } else if (n > secret.value) {
     message.value = "Trop grand";
+    history.value.unshift({ value: n, result: "Trop grand" });
   } else {
     message.value = `Bravo, trouvé en ${tries.value} essais !`;
+    history.value.unshift({ value: n, result: "Bravo" });
     Win.value = true;
   }
 }
@@ -76,7 +81,19 @@ function submitGuess() {
         <!-- Historique -->
         <div class="mt-5">
           <h2 class="text-sm font-semibold text-slate-700">Historique</h2>
-          <p class="mt-2 text-sm text-slate-500">Aucune tentative</p>
+          <ul v-if="history.length" class="mt-2 space-y-1">
+            <li
+              v-for="item in history"
+              :key="item"
+              class="text-sm text-slate-600"
+            >
+              {{ item.value }} - {{ item.result }}
+            </li>
+          </ul>
+
+          <p v-else class="mt-2 text-sm text-slate-500">
+            Aucune tentative pour l'instant.
+          </p>
         </div>
       </main>
     </div>
