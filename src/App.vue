@@ -12,11 +12,13 @@ const guess = ref("");
 
 const tries = ref(0);
 const message = ref('Entre un nombre et clique sur "Valider"');
-const Win = ref(false);
+const win = ref(false);
 
 const secret = ref(generateSecret());
 
 const history = ref([]);
+
+const guessInputRef = ref(null);
 
 // Générer le nombre secret
 function generateSecret() {
@@ -29,18 +31,18 @@ function resetGame() {
   guess.value = "";
   tries.value = 0;
   history.value = [];
-  message.value = 'Nouvelle partie ! Entre un nombre et clique sur "Valider".';
-  Win.value = false;
+  message.value = 'Nouvelle partie ! Entre un nombre et clique sur "Valider"';
+  win.value = false;
 }
 
 // Valider
 function submitGuess() {
-  if (Win.value) return;
+  if (win.value) return;
 
   const n = Number(guess.value);
 
   if (!Number.isInteger(n)) {
-    message.value = "Entre un nombre entier.";
+    message.value = "Entre un nombre entier";
     return;
   }
 
@@ -54,13 +56,19 @@ function submitGuess() {
   if (n < secret.value) {
     message.value = "Trop petit";
     history.value.unshift({ value: n, result: "Trop petit" });
+    guess.value = "";
+    guessInputRef.value?.focus();
   } else if (n > secret.value) {
     message.value = "Trop grand";
     history.value.unshift({ value: n, result: "Trop grand" });
+    guess.value = "";
+    guessInputRef.value?.focus();
   } else {
     message.value = `Bravo, trouvé en ${tries.value} essais !`;
-    history.value.unshift({ value: n, result: "Bravo" });
-    Win.value = true;
+    history.value.unshift({ value: n, result: "Bravo !" });
+    win.value = true;
+    guess.value = "";
+    guessInputRef.value?.focus();
   }
 }
 </script>
@@ -71,7 +79,13 @@ function submitGuess() {
       <GameHeader :min="min" :max="max" />
       <main class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
         <!-- Input guess -->
-        <GuessInput v-model="guess" :min="min" :max="max" />
+        <GuessInput
+          ref="guessInputRef"
+          v-model="guess"
+          :min="min"
+          :max="max"
+          @submit="submitGuess"
+        />
 
         <!-- Valider + Rejouer -->
         <ActionButtons @submit="submitGuess" @reset="resetGame" />

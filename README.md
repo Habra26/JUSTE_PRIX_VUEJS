@@ -1,38 +1,33 @@
-# juste-prix
+# Juste Prix - Vue.js
 
-This template should help get you started developing with Vue 3 in Vite.
+Mini jeu du Juste Prix développé en Vue.js.
 
-## Recommended IDE Setup
+---
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Objectif
 
-## Recommended Browser Setup
+- Mettre en pratique Vue.js.
+- Gérer un état applicatif simple (nombre secret, essais, historique).
+- Découper une application en composants.
+- Améliorer l’expérience utilisateur.
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+---
 
-## Customize configuration
+## Technologies utilisées
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+- Vue.js
+- Vite
+- JavaScript
+- HTML / Tailwind CSS
 
-## Project Setup
+---
 
-```sh
-npm install
-```
+## Fonctionnalités
 
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+- Génération d’un nombre aléatoire entre 1 et 100.
+- Validation des entrées (entiers uniquement).
+- Feedback dynamique.
+- Compteur d’essais.
+- Historique des tentatives.
+- Réinitialisation de la partie.
+- Focus automatique sur l’input après validation.
